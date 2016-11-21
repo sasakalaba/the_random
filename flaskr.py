@@ -1,5 +1,6 @@
+import os
+import uuid
 from ConfigParser import ConfigParser
-import os.path
 from flask import (flash, Flask, redirect, render_template, url_for)
 
 
@@ -25,11 +26,12 @@ Application settings.
 
 # My personal account (limited)
 custom_config = {
-    'EXAMPLE1_KEY': 'foobar',
+    'SESSION_TYPE': 'filesystem',
     'EXAMPLE2_KEY': {}
 }
 
 app = Flask(__name__)
+app.secret_key = uuid.uuid1()
 app.config.update(custom_config)
 
 
@@ -38,14 +40,14 @@ Views
 """
 
 
-@app.route('/')
+@app.route('/testing_site', methods=['GET', 'POST'])
 def testing_site():
     flash('This is a testing site.')
     posts = []
     return render_template('show_posts.html', posts=posts)
 
 
-@app.route('/add', methods=['POST'])
+@app.route('/')
 def index():
     return redirect(url_for('testing_site'))
 
