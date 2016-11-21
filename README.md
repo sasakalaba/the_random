@@ -1,1 +1,3 @@
-# the_random
+# TheRandom
+
+YouTube powered radio/video station.
